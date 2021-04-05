@@ -6,13 +6,17 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.methodius.shoppinglist.adapter.CurrentListAdapter
+import com.methodius.shoppinglist.model.Product
 
 class NewShoppingActivity : AppCompatActivity() {
 
-    lateinit var editText: EditText
-    lateinit var button: Button
-    lateinit var recyclerView: RecyclerView
+    private lateinit var editText: EditText
+    private lateinit var button: Button
+    private lateinit var recyclerView: RecyclerView
+
+    private lateinit var list: ArrayList<Product>
 
     private lateinit var adapter: CurrentListAdapter
 
@@ -20,7 +24,7 @@ class NewShoppingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_shopping)
 
-        val list: ArrayList<String> = ArrayList<String>()
+        list = ArrayList<Product>()
 
         editText = findViewById(R.id.newItem)
         button = findViewById(R.id.save)
@@ -34,8 +38,19 @@ class NewShoppingActivity : AppCompatActivity() {
 
 
         button.setOnClickListener {
-            list.add(editText.text.toString())
+            createRoom()
+            makeButtonEmpty()
             adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun makeButtonEmpty() {
+        editText.setText("")
+    }
+
+    private fun createRoom() {
+        val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "db")
+        val product: Product = Product(1, editText.text.toString())
+        list.add(product)
     }
 }

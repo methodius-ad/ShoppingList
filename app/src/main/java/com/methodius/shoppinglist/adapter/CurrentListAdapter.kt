@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.methodius.shoppinglist.R
+import com.methodius.shoppinglist.model.Product
 
 class CurrentListAdapter: RecyclerView.Adapter<CurrentListAdapter.ProductItemHolder>() {
 
-    var list: List<String> = emptyList()
+    var list: List<Product> = emptyList()
 
     class ProductItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text: TextView = itemView.findViewById(R.id.textItem)
@@ -21,12 +22,12 @@ class CurrentListAdapter: RecyclerView.Adapter<CurrentListAdapter.ProductItemHol
     }
 
     override fun onBindViewHolder(holder: ProductItemHolder, position: Int) {
-        holder.text.text = list[position]
+        holder.text.text = list[position].text
     }
 
     override fun getItemCount(): Int = list.size
 
-    fun fillList(list: List<String>) {
+    fun fillList(list: List<Product>) {
         this.list = list
     }
 }
