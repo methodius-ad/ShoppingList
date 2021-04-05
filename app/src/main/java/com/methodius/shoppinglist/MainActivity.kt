@@ -9,14 +9,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.methodius.shoppinglist.adapter.CurrentListAdapter
 import com.methodius.shoppinglist.model.Product
+import javax.inject.Inject
+import javax.inject.Singleton
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    @Singleton
+    lateinit var db: AppDatabase
 
     lateinit var addButton: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        App.component.injectsMain(this)
+
+
 
         addButton = findViewById(R.id.floatingActionButton)
 
