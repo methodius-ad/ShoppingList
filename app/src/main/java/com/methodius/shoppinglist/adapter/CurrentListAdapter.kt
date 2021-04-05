@@ -1,0 +1,32 @@
+package com.methodius.shoppinglist.adapter
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.methodius.shoppinglist.R
+
+class CurrentListAdapter: RecyclerView.Adapter<CurrentListAdapter.ProductItemHolder>() {
+
+    var list: List<String> = emptyList()
+
+    class ProductItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val text: TextView = itemView.findViewById(R.id.textItem)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductItemHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
+        return ProductItemHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ProductItemHolder, position: Int) {
+        holder.text.text = list[position]
+    }
+
+    override fun getItemCount(): Int = list.size
+
+    fun fillList(list: List<String>) {
+        this.list = list
+    }
+}
